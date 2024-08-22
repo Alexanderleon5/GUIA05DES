@@ -1,0 +1,29 @@
+
+CREATE TABLE dbo.Generos (
+    Id INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL
+);
+
+
+CREATE TABLE dbo.Peliculas (
+    ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+    Titulo NVARCHAR(250) NOT NULL,
+    FechaLanzamiento DATETIME2(7) NOT NULL,
+    GeneroId INT NOT NULL,
+    Precio DECIMAL(18,2) NOT NULL,
+    Director NVARCHAR(250) NOT NULL,
+    CONSTRAINT FK_Peliculas_Generos FOREIGN KEY (GeneroId) 
+        REFERENCES dbo.Generos(Id)
+);
+-- Insertar géneros en la tabla Generos ya que sin las migraciones no estan para 
+-- escoger en la seccion de crear una nueva pelicula desde la pagina web levantada por azure
+INSERT INTO dbo.Generos (Nombre)
+VALUES 
+    ('Comedia'),
+    ('Romance'),
+    ('Aventura'),
+    ('Acción'),
+    ('Fantasía'),
+    ('Drama');
+
+SELECT * FROM dbo.Peliculas
